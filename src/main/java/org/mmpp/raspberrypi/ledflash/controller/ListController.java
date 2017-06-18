@@ -11,6 +11,8 @@ public class ListController {
 
     @RequestMapping()
     public String list(Model model){
+        String[] stringArray = {"Sunday", "Monday", "Tuesday"};
+        model.addAttribute("channels", stringArray);
         return "list";
     }
 
