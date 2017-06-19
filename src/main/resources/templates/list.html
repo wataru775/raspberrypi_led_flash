@@ -46,16 +46,16 @@
             </tr>
             <tr th:each="channel : ${channels}">
                 <td class="col-lg-2">
-                    <span style="font-size: 17px;">1</span>
+                    <span th:text='${channel.no}' style="font-size: 17px;">1</span>
                 </td>
                 <td class="col-lg-2">
-                    <span style="font-size: 17px;">緑</span>
+                    <span th:text='${channel.color}' style="font-size: 17px;">緑</span>
                 </td>
                 <td class="col-lg-1">
-                    <span style="font-size: 17px;">GPIO_16</span>
+                    <span th:text='${channel.channel}' style="font-size: 17px;">GPIO_16</span>
                 </td>
                 <td class="col-lg-1">
-                    <span style="font-size: 17px;">15</span>
+                    <span th:text='${channel.signal}' style="font-size: 17px;">15</span>
                 </td>
                 <td class="col-lg-3">
                     <button type="button" class="btn btn-primary col-lg-3" ><span style="margin-right: 5px" class="glyphicon glyphicon-star"></span>点灯(on)</button>
