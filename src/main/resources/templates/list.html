@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>hoge</title>
+        <title>Raspberry Pi動作</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -11,6 +11,20 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script>
+            function turnOn(channel){
+                console.log("turnOn",channel);
+                $.ajax('/turnon?channel=' + channel);
+            }
+            function turnOff(channel){
+                console.log("turnOff",channel);
+                $.ajax('/turnoff?channel=' + channel);
+            }
+            function test(){
+                console.log("test");
+                $.ajax('/test');
+            }
+        </script>
     </head>
     <body>
     <div class="panel panel-primary" style="width:100%">
@@ -21,7 +35,7 @@
         <div class="row">
             <div class="col-xs-12">
 
-                <button type="button" style="margin:3px; width:32.8%" class="btn btn-success col-lg-3 col-xs-3" ><span style="font-size:larger;"><span style="margin-right: 5px" class="glyphicon glyphicon-align-justify"></span>Lチカ 検証</span></button>
+                <button type="button" style="margin:3px; width:32.8%" class="btn btn-success col-lg-3 col-xs-3"  ><span style="font-size:larger;"><span style="margin-right: 5px" class="glyphicon glyphicon-align-justify"></span>Lチカ 検証</span></button>
                 <button type="button" style="margin: 3px; width: 32.8%" class=" btn btn-success col-lg-3 col-xs-3"  ><span style="font-size:larger;"><span style="margin-right: 5px" class="glyphicon glyphicon-collapse-down"></span>ボタン検証</span></button>
                 <button type="button" style="margin: 3px; width: 32.8%" class="btn btn-success col-lg-3 col-xs-3"  ><span style="font-size:larger;"><span style="margin-right: 5px" class="glyphicon glyphicon-glass"></span>回転灯動作</span></button>
 
@@ -52,20 +66,21 @@
                     <span th:text='${channel.color}' style="font-size: 17px;">緑</span>
                 </td>
                 <td class="col-lg-1">
-                    <span th:text='${channel.channel}' style="font-size: 17px;">GPIO_16</span>
+                    <span th:text='${channel.label}' style="font-size: 17px;">GPIO_16</span>
                 </td>
                 <td class="col-lg-1">
-                    <span th:text='${channel.signal}' style="font-size: 17px;">15</span>
+                    <span th:text='${channel.channel }' style="font-size: 17px;">15</span>
                 </td>
                 <td class="col-lg-3">
-                    <button type="button" class="btn btn-primary col-lg-3" ><span style="margin-right: 5px" class="glyphicon glyphicon-star"></span>点灯(on)</button>
+                    <button type="button"  class="btn btn-primary col-lg-3" th:value="${channel.label}" onclick="turnOn(this.value);"><span style="margin-right: 5px" class="glyphicon glyphicon-star"></span>点灯(on)</button>
 
-                    <button type="button" class="btn btn-info col-lg-3 col-lg-offset-1" ><span style="margin-right: 5px" class="glyphicon glyphicon-refresh"></span>Toggle</button>
-
-                    <button type="button" class="btn btn-danger col-lg-3 col-lg-offset-1" ><span style="margin-right: 5px" class="glyphicon glyphicon-star-empty"></span>消灯(off)</button>
+                    <button type="button" class="btn btn-danger col-lg-3 col-lg-offset-1" th:value="${channel.label}" onclick="turnOff(this.value);"><span style="margin-right: 5px" class="glyphicon glyphicon-star-empty"></span>消灯(off)</button>
                 </td>
             </tr>
         </table>
+
+        <button type="button" style="padding-top:1em" class="btn btn-success col-lg-7 col-lg-offset-1"  onclick="test();"><span style="margin-right: 5px" class="glyphicon glyphicon-star-empty"></span>動作チェック</button>
+
     </div>
     </body>
 </html>

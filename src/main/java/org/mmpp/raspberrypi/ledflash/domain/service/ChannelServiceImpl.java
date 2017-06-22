@@ -20,11 +20,9 @@ public class ChannelServiceImpl implements ChannelService{
     @Override
     public List<Channel> findAll(){
         List<Channel> channels = new LinkedList<>();
-        channels.add(new Channel("1", "緑", "GPIO_16", "15"));
-        channels.add(new Channel("2", "緑", "GPIO_15", "16"));
         for(Object result : gpioDao.findAll()) {
             GPIO gpio = (GPIO)result;
-            channels.add(new Channel(gpio.channel, "緑", "GPIO_15", "16"));
+            channels.add(new Channel(String.valueOf(gpio.id), gpio.color,  gpio.channel , gpio.label , gpio.type));
 
         }
         return channels;

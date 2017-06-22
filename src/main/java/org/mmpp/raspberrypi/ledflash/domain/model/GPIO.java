@@ -8,11 +8,18 @@ import java.io.Serializable;
 public class GPIO implements Serializable{
 
     @Id
+    @Column
     @GeneratedValue
     public Long id;
 
     @Column
+    public String color;
+
+    @Column
     public String channel;
+
+    @Column
+    public String label;
 
     @Column
     public String type;
